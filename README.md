@@ -16,8 +16,8 @@ In this tutorial, we observe various network traffic to and from Azure Virtual M
 
 <h2>Operating Systems Used </h2>
 
-- Windows 10 (21H2)
-- Ubuntu Server 20.04
+- Windows 10 Pro version 22H2- x64 Gen2
+- Ubuntu Server 22.04 LTS-x64 Gen2
 
 <h2>High-Level Steps</h2>
 
@@ -54,14 +54,56 @@ Next we create our VM. Click on create--> make sure you are on the correct subsc
 
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
+For this part, we are going to use the Remote Desktop Connection program to log in the Windows VM. Locate the IP address by either scrolling to the right on the VM page on Azure or clicking on the VM itself and locating the IP address there as well.
+  Under the Remote Desktop Connection, enter the IP address and click connect--> enter username and password that you created--> A pop up should appear (For Windows) and click OK and you should get connected to VM.
+<img width="1938" height="646" alt="Screenshot 2025-09-05 002225" src="https://github.com/user-attachments/assets/69d5ef0c-a0b3-451d-95b9-bf8fd0e5dad6" />
+<img width="1536" height="844" alt="Screenshot 2025-09-05 002915" src="https://github.com/user-attachments/assets/e96061b7-4928-4510-bd2c-46748d9efaae" />
+<img width="2000" height="1124" alt="Annotation 2025-08-31 002901" src="https://github.com/user-attachments/assets/4966571d-1060-4321-884a-09f2a5838448" />
+
 <br />
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<p> Once you are connected to the VM, install the program WireShark (https://www.wireshark.org) and select Windows x64 Installer. Follow the pop up prompts for installation.
+<img width="1850" height="872" alt="Annotation 2025-09-05 043313" src="https://github.com/user-attachments/assets/be7ec5d6-7d56-44a0-8552-3df93cbb294e" />
+
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Next, open Wireshark. You can search Wireshark in the serach bar at the bottom of the screen near the windows icon--> Click ethernet and in the top left corner, click the shark fin icon--> Once opened, you will see all the traffic constantly being generated.
+
+<img width="1502" height="1156" alt="Annotation 2025-09-05 044039" src="https://github.com/user-attachments/assets/ebc24dd6-186b-48bc-aed2-f7860bae6524" />
+
 </p>
+<p> We are going to observe ICMP traffic.
+
+  
+First, go retrieve the private IP address from the linux VM (10.0.0.5)--> open Powershell in the Windows VM--> from the Windows VM, we are going to attempt to ping the linux VM. In Powershell, next to PS C:\user\(username)> type ping 10.0.0.5 and hit enter. Observe the traffice. Make sure to filter ICMP in wireshark. The next image shows a perpetual ping where it does not stop pinging. The command is PS C:\user\(username)> ping 10.0.0.5 -t
+
+<img width="2192" height="1394" alt="Annotation 2025-09-05 044822" src="https://github.com/user-attachments/assets/563dabcd-fcf7-43ef-b1b7-085a2c564ea6" />
+<img width="2184" height="1414" alt="Annotation 2025-09-05 045812" src="https://github.com/user-attachments/assets/f09ab6e8-fb51-4f54-a5d5-2792d80af7c0" />
+
+</p>
+<p> For this part, we are going to configure a firewall and going to tell it to block all incoming ping traffic from the Windows VM.
+
+Go the VM page on the Azure Portal, click on the linux VM--> click on network--> network settings  --> Network Security Group, click linux-vm-nsg--> settings--> inbound security rules--> click +Add --> Source, Any--> Destination, Any--> service, custom--> Destination Port Ranges, leave asterisk  --> Protocol, ICMPv4--> Action, Deny--> Priority, 290--> make sure you enter a name or else it will not go through--> then click Add.
+
+Once the rules are applied, go back to Powershell and observe what happens. The Pings will time out forever unless the rules is changed.
+
+  
+<img width="1904" height="874" alt="Screenshot 2025-09-05 010023" src="https://github.com/user-attachments/assets/6ff22a7c-9432-465c-94ed-ebfd7dbdea6d" />
+<img width="1952" height="1248" alt="Screenshot 2025-09-05 010257" src="https://github.com/user-attachments/assets/bf3ed591-b2c3-4f29-b784-d8e7c32c177d" />
+<img width="2194" height="1362" alt="Annotation 2025-09-05 050821" src="https://github.com/user-attachments/assets/5eaab00f-bdf3-430d-8dcd-18057ca5bec4" />
+
+</p>
+We are going to observe SSH traffic
+
+In WireShark,  make sure you filter SSH traffic--> open Poweshell and type 
+
+SSH (username)@<private IP address of linux VM>
+
+<img width="2654" height="1394" alt="Annotation 2025-09-06 020215" src="https://github.com/user-attachments/assets/b74e9fdb-0832-44a3-b577-d9699b052dbe" />
+
+
+
+<p>
+
+  
 <br />
