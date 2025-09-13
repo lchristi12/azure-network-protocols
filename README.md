@@ -92,18 +92,39 @@ Once the rules are applied, go back to Powershell and observe what happens. The 
 <img width="1952" height="1248" alt="Screenshot 2025-09-05 010257" src="https://github.com/user-attachments/assets/bf3ed591-b2c3-4f29-b784-d8e7c32c177d" />
 <img width="2194" height="1362" alt="Annotation 2025-09-05 050821" src="https://github.com/user-attachments/assets/5eaab00f-bdf3-430d-8dcd-18057ca5bec4" />
 
-</p>
-We are going to observe SSH traffic
+</p>We are going to observe SSH traffic
 
-In WireShark,  make sure you filter SSH traffic--> open Poweshell and type 
 
-SSH (username)@<private IP address of linux VM>
+
+
+In WireShark,  make sure you filter SSH traffic--> open Poweshell 
+
+
+Type--> SSH (username)@ private IP address of linux VM and observe the traffic.
+
 
 <img width="2654" height="1394" alt="Annotation 2025-09-06 020215" src="https://github.com/user-attachments/assets/b74e9fdb-0832-44a3-b577-d9699b052dbe" />
 
 
+<p> We are going to observe DHCP traffic
 
-<p>
+Filter DCHP--> in Powershell input ipconfig/ renew and observe the traffic.
 
-  
+  <img width="2552" height="1440" alt="Annotation 2025-09-06 021649" src="https://github.com/user-attachments/assets/1aab4484-b1f1-487d-861a-ae3924a4888f" />
+
+<p> We are going to observe DNS traffic
+
+In WireShark, filter DNS--> type nslookup www.disney.com and observe traffic
+
+  <img width="2880" height="1548" alt="Annotation 2025-09-06 022740" src="https://github.com/user-attachments/assets/265050d5-60ed-4e4e-a236-ac6b73e49d1a" />
+
+<p> We are going to observe RDP traffic
+
+In WireShark, filter RDP and observe traffic. The tutorial we are doing right now is an example of RDP. We are remoting into a VM.
+
+  <img width="2880" height="1392" alt="Annotation 2025-09-06 023236" src="https://github.com/user-attachments/assets/bbeeea5d-44ac-4a60-a0b6-35a59678f1b9" />
+
+
+  This is the end of the tutorial. Hope this is helpful and do not forget to delete the VM once finished or else you will be charge money for them.
+
 <br />
